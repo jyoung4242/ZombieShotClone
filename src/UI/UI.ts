@@ -118,7 +118,7 @@ export const template = `
         </div>
 
          <div style="position: absolute; width: auto; left:2%; bottom:0; margin-top: 50px; display:flex; justify-content: space-between; align-items: center;">
-            <img src='./src/assets/graphics/ammo_icon.png' width='50px' height='50px'/>
+            <img src='./graphics/ammo_icon.png' width='50px' height='50px'/>
             Clip: \${clip}
             Ammo: \${ammo}            
         </div>
@@ -126,13 +126,13 @@ export const template = `
 
     <div id='gameoverHud' \${===isGameOverScene}>
         <span style="font-family: 'zombie'; position: absolute; width: 75%; left:50%; top:50%; transform: translate(-50% , -50%); font-size: 3em;">ZOMBIE SHOOTER CLONE</span> 
-        <img src='./src/assets/graphics/background.png' width='\${screenWidth}px' height='\${screenHeight}px'/>
+        <img src='./graphics/background.png' width='\${screenWidth}px' height='\${screenHeight}px'/>
         <button \${click@=>startGame} style="pointer-events: all; position: absolute; top:75%; left:50%; transform: translate(-50%, -50%); border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">START GAME</button>
     </div>
 
     <div id='levelUpHUD' \${===isLevelUpScene}>
         <span style="font-family: 'zombie'; position: absolute; width: 75%; left:50%; top:50%; transform: translate(-50% , -50%); font-size: 3em;">CHOOSE UPGRADE</span> 
-        <img src='./src/assets/graphics/background.png' width='\${screenWidth}px' height='\${screenHeight}px'/>
+        <img src='./graphics/background.png' width='\${screenWidth}px' height='\${screenHeight}px'/>
         <div style="position: absolute; top:75%; left:50%; transform: translate(-50%, -50%);display: flex; justify-content: center;align-items: center;gap: 20px">
             <button \${click@=>upgradeFireRate} style="pointer-events: all;  border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px;">INCREASE FIRE RATE</button>
             <button \${click@=>upgradeClip} style="pointer-events: all;  border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px;">INCREASE CLIP CAPACITY</button>
