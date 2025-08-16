@@ -21,6 +21,7 @@ export class PickUp extends Actor {
   visibleTimeLimit = 10000;
   map: TileMap | null = null;
   newWaveSignal = new Signal("incrementWave");
+  scoreUpdateSignal = new Signal("scoreUpdate");
   activeCollisions: Set<Player> = new Set();
 
   constructor(type: keyof typeof pickupType) {
@@ -86,6 +87,7 @@ export class PickUp extends Actor {
       this.hiddenTime = 0;
       if (this.type == "ammo") sndManager.play("reload");
       else sndManager.play("pickup");
+      this.scoreUpdateSignal.send([5]);
     }
 
     if (!this.isAvailable) this.hiddenTime += elapsed;
