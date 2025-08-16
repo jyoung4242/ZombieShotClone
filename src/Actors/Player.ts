@@ -19,7 +19,7 @@ import { Signal } from "../Lib/Signals";
 import { Zombie } from "./Zombie";
 import { sndManager } from "../main";
 export class Player extends Actor {
-  maxSpeed = 100;
+  maxSpeed = 50;
   scene: Scene | null = null;
   isUpPressed = false;
   isDownPressed = false;
