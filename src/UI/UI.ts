@@ -40,32 +40,32 @@ export const model = {
   startGame: () => {
     enginesignal.send(["game"]);
   },
-  upgradeClip: () => {
-    sndManager.play("powerup");
-    enginesignal.send(["game"]);
-    playerUpgradeSignal.send(["upgradeClip"]);
+  upgradeClip: (e: Event, m: any) => {
+    m.confirmDialog?.showModal();
+    m.choice = "upgradeClip";
+    m.upgradeConfirmString = "clip size?";
   },
-  upgradeFireRate: () => {
-    sndManager.play("powerup");
-    enginesignal.send(["game"]);
-    playerUpgradeSignal.send(["upgradeFireRate"]);
+  upgradeFireRate: (e: Event, m: any) => {
+    m.confirmDialog?.showModal();
+    m.choice = "upgradeFireRate";
+    m.upgradeConfirmString = "fire rate?";
   },
-  upgradeHealth: () => {
-    sndManager.play("powerup");
-    enginesignal.send(["game"]);
-    playerUpgradeSignal.send(["upgradeHealth"]);
+  upgradeHealth: (e: Event, m: any) => {
+    m.confirmDialog?.showModal();
+    m.choice = "upgradeHealth";
+    m.upgradeConfirmString = "health?";
   },
-  upgradeSpeed: () => {
-    sndManager.play("powerup");
-    enginesignal.send(["game"]);
-    playerUpgradeSignal.send(["upgradeSpeed"]);
+  upgradeSpeed: (e: Event, m: any) => {
+    m.confirmDialog?.showModal();
+    m.choice = "upgradeSpeed";
+    m.upgradeConfirmString = "speed?";
   },
-  upgradeAmmo: () => {
-    sndManager.play("powerup");
-    enginesignal.send(["game"]);
-    playerUpgradeSignal.send(["upgradeAmmo"]);
+  upgradeAmmo: (e: Event, m: any) => {
+    m.confirmDialog?.showModal();
+    m.choice = "upgradeAmmo";
+    m.upgradeConfirmString = "ammo capacity?";
   },
-  mode: "prod" as "dev" | "prod",
+  mode: "dev" as "dev" | "prod",
   cursorPathDev: "./src/Assets/graphics/crosshair.png",
   cursorPathProd: "./graphics/crosshair.png",
   backgroundPathDev: "./src/Assets/graphics/background.png",
@@ -93,6 +93,18 @@ export const model = {
       return this.bulletIconPathProd;
     }
   },
+  confirmDialog: undefined as HTMLDialogElement | undefined,
+  choice: "" as "upgradeClip" | "upgradeFireRate" | "upgradeHealth" | "upgradeSpeed" | "upgradeAmmo",
+  confirm: (e: Event, m: any) => {
+    model.confirmDialog?.close();
+    sndManager.play("powerup");
+    enginesignal.send(["game"]);
+    playerUpgradeSignal.send([m.choice]);
+  },
+  notconfirm: () => {
+    model.confirmDialog?.close();
+  },
+  upgradeConfirmString: "",
 };
 
 export const template = `
@@ -170,6 +182,12 @@ export const template = `
             <button \${click@=>upgradeSpeed} style="pointer-events: all;  border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px;">INCREASE SPEED</button>  
              <button \${click@=>upgradeAmmo} style="pointer-events: all;  border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px;">INCREASE AMMO CAPACITY</button>  
         </div>
+
+        <dialog id="myDialog" \${==>confirmDialog}>
+          <p>Confirm you want to upgrade: \${upgradeConfirmString}</p>
+          <button  style="pointer-events: all; cursor: pointer;" \${click@=>confirm}>Accept</button>
+          <button  style="pointer-events: all; cursor: pointer;" \${click@=>notconfirm}>Cancel</button>
+        </dialog>
       
     </div>
 

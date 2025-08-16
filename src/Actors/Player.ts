@@ -37,6 +37,7 @@ export class Player extends Actor {
   canFire: boolean = true;
 
   activeCollisions: Set<Zombie> = new Set();
+  firingInput: boolean = false;
 
   // cool off
   isInvincible = false;
@@ -173,17 +174,11 @@ export class Player extends Actor {
   }
 
   fire() {
-    if (!this.canFire) return;
-    if (!this.scene) return;
-    if (this.clip <= 0) {
-      sndManager.play("reloadFailed");
-      return;
-    }
-    this.canFire = false;
-    sndManager.play("shoot");
-    this.clip--;
-    this.scene.add(new Bullett(this.pos, this.scene.input.pointers.primary.lastWorldPos));
-    this.fireSignal.send();
+    this.firingInput = true;
+  }
+
+  ceasefire() {
+    this.firingInput = false;
   }
 
   registerScene(scene: Scene, tilemap: TileMap) {
@@ -229,10 +224,21 @@ export class Player extends Actor {
     }
 
     //cool of timer for fire rate
-    if (!this.canFire) {
-      this.fireTik += elapsed;
+    this.fireTik += elapsed;
+    if (this.firingInput) {
       if (this.fireTik > this.fireRate) {
-        this.canFire = true;
+        //shoot logic here
+        if (!this.scene) return;
+
+        if (this.clip <= 0) {
+          sndManager.play("reloadFailed");
+          this.fireTik = 0;
+          return;
+        }
+        sndManager.play("shoot");
+        this.clip--;
+        this.scene.add(new Bullett(this.pos, this.scene.input.pointers.primary.lastWorldPos));
+        this.fireSignal.send();
         this.fireTik = 0;
       }
     }

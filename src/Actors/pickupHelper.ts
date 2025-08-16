@@ -17,6 +17,7 @@ export class PickUpHelper extends ScreenElement {
     super({
       width: 24,
       height: 24,
+      z: 50,
     });
     this.type = pickup.type;
     this.iconGraphic = this.type == "ammo" ? this.ammoGrahphic : this.healthGrahpic;

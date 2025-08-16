@@ -55,6 +55,7 @@ export class GameScene extends Scene {
     this.player.pos = centerpoint;
     this.player.registerScene(this, this.tmap);
     this.add(this.player);
+    this.player.ceasefire();
 
     //Zombie generation logic here
     // the number of zombies should be based on size of tmap area

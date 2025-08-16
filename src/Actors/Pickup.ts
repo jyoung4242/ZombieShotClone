@@ -50,8 +50,6 @@ export class PickUp extends Actor {
       } else {
         this.value = this.rng.integer(5, 15);
       }
-      this.hiddenTimeLimit = 5000;
-      this.visibleTimeLimit = 5000;
     });
   }
 

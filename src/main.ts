@@ -75,3 +75,4 @@ game.input.keyboard.on("release", (e: KeyEvent) => {
   player.onKeyUp(e);
 });
 game.input.pointers.primary.on("down", () => player.fire());
+game.input.pointers.primary.on("up", () => player.ceasefire());
