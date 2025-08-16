@@ -65,7 +65,7 @@ export const model = {
     enginesignal.send(["game"]);
     playerUpgradeSignal.send(["upgradeAmmo"]);
   },
-  mode: "dev" as "dev" | "prod",
+  mode: "prod" as "dev" | "prod",
   cursorPathDev: "./src/Assets/graphics/crosshair.png",
   cursorPathProd: "./graphics/crosshair.png",
   backgroundPathDev: "./src/Assets/graphics/background.png",
