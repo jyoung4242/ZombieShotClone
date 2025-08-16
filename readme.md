@@ -1,4 +1,4 @@
-# Zombie Shot Clone
+# Zombie Shooter Clone
 
 Zombie Shot Clone is a top-down 2D shooter game built with TypeScript and Vite. Players must survive waves of zombies, collect pickups,
 and manage their health and ammo to achieve the highest score possible.
