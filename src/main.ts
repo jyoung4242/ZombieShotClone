@@ -59,7 +59,6 @@ const sndManagerOp: SoundManagerOptions = {
     reloadFailed: { sound: Resources.reloadFailed, channels: ["sfx"], volume: 0.75 },
     splat: { sound: Resources.splat, channels: ["sfx"], volume: 0.75 },
     bgm: { sound: Resources.bgm, channels: ["bgm"], volume: 0.5, loop: true },
-    moan1: { sound: Resources.moan, channels: ["sfx"], volume: 0.5, loop: true, start: 0.0, stop: 2.3 },
   },
 };
 
