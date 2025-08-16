@@ -21,6 +21,7 @@ export class PickUp extends Actor {
   visibleTimeLimit = 10000;
   map: TileMap | null = null;
   newWaveSignal = new Signal("incrementWave");
+  activeCollisions: Set<Player> = new Set();
 
   constructor(type: keyof typeof pickupType) {
     super({
@@ -61,7 +62,22 @@ export class PickUp extends Actor {
   onCollisionStart(self: Collider, other: Collider, side: Side, contact: CollisionContact): void {
     if (!this.isAvailable) return;
     if (other.owner instanceof Player) {
-      other.owner.getPickup(this.type, this.value);
+      this.activeCollisions.add(other.owner);
+    }
+  }
+
+  onCollisionEnd(self: Collider, other: Collider, side: Side, lastContact: CollisionContact): void {
+    if (other.owner instanceof Player) this.activeCollisions.delete(other.owner);
+  }
+
+  onPreUpdate(engine: Engine, elapsed: number): void {
+    if (!this.map) return;
+
+    //collision logic here
+    if (this.activeCollisions.size > 0 && this.isAvailable) {
+      const other = this.activeCollisions.values().next().value;
+      if (!other) return;
+      other.getPickup(this.type, this.value);
       this.pos = findRandomSpotOnMap(this.map!);
       this.visibleTimeLimit *= 1.1;
       this.hiddenTimeLimit *= 0.9;
@@ -73,10 +89,6 @@ export class PickUp extends Actor {
       if (this.type == "ammo") sndManager.play("reload");
       else sndManager.play("pickup");
     }
-  }
-
-  onPreUpdate(engine: Engine, elapsed: number): void {
-    if (!this.map) return;
 
     if (!this.isAvailable) this.hiddenTime += elapsed;
     if (this.isAvailable) this.visibleTime += elapsed;

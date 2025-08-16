@@ -36,6 +36,8 @@ export class Player extends Actor {
   fireRate = 1000;
   canFire: boolean = true;
 
+  activeCollisions: Set<Zombie> = new Set();
+
   // cool off
   isInvincible = false;
   damageTimeout = 0;
@@ -205,6 +207,27 @@ export class Player extends Actor {
   }
 
   onPreUpdate(engine: Engine, elapsed: number): void {
+    //check for active zombie collisions
+    if (this.activeCollisions.size > 0 && !this.isInvincible) {
+      //collision logic here
+      // get first zombie
+      const other = this.activeCollisions.values().next().value;
+      if (!other) return;
+      const damage = other.attackPower;
+      this.health -= damage;
+      this.takeDamageSignal.send([damage]);
+      this.isInvincible = true;
+      this.actions.flash(Color.White, 2000);
+      this.graphics.opacity = 0.6;
+      sndManager.play("hit");
+
+      if (this.health <= 0) {
+        this.health = 0;
+        this.gameOverSignal.send();
+        this.uiresetSignal.send();
+      }
+    }
+
     //cool of timer for fire rate
     if (!this.canFire) {
       this.fireTik += elapsed;
@@ -258,20 +281,13 @@ export class Player extends Actor {
 
   onCollisionStart(self: Collider, other: Collider, side: Side, contact: CollisionContact): void {
     if (other.owner instanceof Zombie && !(other.owner as Zombie).isDead && !this.isInvincible) {
-      //damage player
-      const damage = other.owner.attackPower;
-      this.health -= damage;
-      this.takeDamageSignal.send([damage]);
-      this.isInvincible = true;
-      this.actions.flash(Color.White, 2000);
-      this.graphics.opacity = 0.6;
-      sndManager.play("hit");
-
-      if (this.health <= 0) {
-        this.health = 0;
-        this.gameOverSignal.send();
-        this.uiresetSignal.send();
-      }
+      // is zombie in active collisions
+      if (this.activeCollisions.has(other.owner)) return;
+      this.activeCollisions.add(other.owner);
     }
+  }
+
+  onCollisionEnd(self: Collider, other: Collider, side: Side, lastContact: CollisionContact): void {
+    if (other.owner instanceof Zombie) this.activeCollisions.delete(other.owner);
   }
 }

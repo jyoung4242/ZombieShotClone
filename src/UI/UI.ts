@@ -65,12 +65,12 @@ export const model = {
     enginesignal.send(["game"]);
     playerUpgradeSignal.send(["upgradeAmmo"]);
   },
-  mode: "prod" as "dev" | "prod",
-  cursorPathDev: ".src/Assets/graphics/crosshair.png",
+  mode: "dev" as "dev" | "prod",
+  cursorPathDev: "./src/Assets/graphics/crosshair.png",
   cursorPathProd: "./graphics/crosshair.png",
-  backgroundPathDev: ".src/Assets/graphics/background.png",
+  backgroundPathDev: "./src/Assets/graphics/background.png",
   backgroundPathProd: "./graphics/background.png",
-  bulletIconPathDev: ".src/Assets/graphics/ammo_icon.png",
+  bulletIconPathDev: "./src/Assets/graphics/ammo_icon.png",
   bulletIconPathProd: "./graphics/ammo_icon.png",
   get cursorPath() {
     if (this.mode === "dev") {
