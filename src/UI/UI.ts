@@ -81,7 +81,7 @@ export const template = `
         top:50%; 
         left:50%; 
         transform: translate(-50% , -50%);
-        cursor: url('./src/assets/graphics/crosshair.png') 55 55, auto;
+        cursor: url('./graphics/crosshair.png') 55 55, auto;
     }
     
     button:hover{

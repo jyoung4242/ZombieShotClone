@@ -976,7 +976,7 @@ Read more about this issue at https://excaliburjs.com/docs/performance`),i&&this
         top:50%; 
         left:50%; 
         transform: translate(-50% , -50%);
-        cursor: url('./src/assets/graphics/crosshair.png') 55 55, auto;
+        cursor: url('./graphics/crosshair.png') 55 55, auto;
     }
     
     button:hover{
