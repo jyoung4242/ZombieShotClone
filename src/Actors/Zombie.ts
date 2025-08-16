@@ -22,7 +22,7 @@ export class Zombie extends Actor {
   player: Player;
   constructor(type: keyof typeof zombieType, pos: Vector, player: Player) {
     super({
-      radius: 25,
+      radius: 22,
       z: 3,
       pos,
       anchor: Vector.Half,

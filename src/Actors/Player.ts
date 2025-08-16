@@ -55,7 +55,7 @@ export class Player extends Actor {
 
   constructor() {
     super({
-      radius: 25,
+      radius: 22,
       z: 4,
       x: 0,
       y: 0,

@@ -13,6 +13,7 @@ export const scenes = {
 } as const;
 
 export const model = {
+  mode: "prod" as "dev" | "prod",
   screenWidth: 0,
   screenHeight: 0,
   wave: 0,
@@ -65,7 +66,7 @@ export const model = {
     m.choice = "upgradeAmmo";
     m.upgradeConfirmString = "ammo capacity?";
   },
-  mode: "prod" as "dev" | "prod",
+
   cursorPathDev: "./src/Assets/graphics/crosshair.png",
   cursorPathProd: "./graphics/crosshair.png",
   backgroundPathDev: "./src/Assets/graphics/background.png",
@@ -123,7 +124,7 @@ export const template = `
         top:50%; 
         left:50%; 
         transform: translate(-50% , -50%);
-        cursor: url('./graphics/crosshair.png') 55 55, auto;
+        cursor: url('./graphics/crosshair.png') 27.5 27.5, auto;
     }
     
     button:hover{
