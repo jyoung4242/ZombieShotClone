@@ -65,15 +65,45 @@ export const model = {
     enginesignal.send(["game"]);
     playerUpgradeSignal.send(["upgradeAmmo"]);
   },
+  mode: "prod" as "dev" | "prod",
+  cursorPathDev: ".src/Assets/graphics/crosshair.png",
+  cursorPathProd: "./graphics/crosshair.png",
+  backgroundPathDev: "./graphics/background.png",
+  backgroundPathProd: ".src/Assets/graphics/background.png",
+  bulletIconPathDev: ".src/Assets/graphics/ammo_icon.png",
+  bulletIconPathProd: "./graphics/ammo_icon.png",
+  get cursorPath() {
+    if (this.mode === "dev") {
+      return this.cursorPathDev;
+    } else {
+      return this.cursorPathProd;
+    }
+  },
+  get backgroundPath() {
+    if (this.mode === "dev") {
+      return this.backgroundPathDev;
+    } else {
+      return this.backgroundPathProd;
+    }
+  },
+  get bulletIconPath() {
+    if (this.mode === "dev") {
+      return this.bulletIconPathDev;
+    } else {
+      return this.bulletIconPathProd;
+    }
+  },
 };
 
 export const template = `
 <style> 
+
+
     @font-face {
         font-family: 'zombie';
         font-style: normal;
         font-weight: 400;
-        src: url('./src/assets/fonts/zombiecontrol.ttf');
+        src: url('\${cursorPath}');
     }
 
     canvas{ 
@@ -126,13 +156,13 @@ export const template = `
 
     <div id='gameoverHud' \${===isGameOverScene}>
         <span style="font-family: 'zombie'; position: absolute; width: 75%; left:50%; top:50%; transform: translate(-50% , -50%); font-size: 3em;">ZOMBIE SHOOTER CLONE</span> 
-        <img src='./graphics/background.png' width='\${screenWidth}px' height='\${screenHeight}px'/>
+        <img src='\${backgroundPath}' width='\${screenWidth}px' height='\${screenHeight}px'/>
         <button \${click@=>startGame} style="pointer-events: all; position: absolute; top:75%; left:50%; transform: translate(-50%, -50%); border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">START GAME</button>
     </div>
 
     <div id='levelUpHUD' \${===isLevelUpScene}>
         <span style="font-family: 'zombie'; position: absolute; width: 75%; left:50%; top:50%; transform: translate(-50% , -50%); font-size: 3em;">CHOOSE UPGRADE</span> 
-        <img src='./graphics/background.png' width='\${screenWidth}px' height='\${screenHeight}px'/>
+        <img src='\${backgroundPath}' width='\${screenWidth}px' height='\${screenHeight}px'/>
         <div style="position: absolute; top:75%; left:50%; transform: translate(-50%, -50%);display: flex; justify-content: center;align-items: center;gap: 20px">
             <button \${click@=>upgradeFireRate} style="pointer-events: all;  border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px;">INCREASE FIRE RATE</button>
             <button \${click@=>upgradeClip} style="pointer-events: all;  border-radius: 20px; background-color: #4CAF50; border: none; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px;">INCREASE CLIP CAPACITY</button>
