@@ -68,8 +68,8 @@ export const model = {
   mode: "prod" as "dev" | "prod",
   cursorPathDev: ".src/Assets/graphics/crosshair.png",
   cursorPathProd: "./graphics/crosshair.png",
-  backgroundPathDev: "./graphics/background.png",
-  backgroundPathProd: ".src/Assets/graphics/background.png",
+  backgroundPathDev: ".src/Assets/graphics/background.png",
+  backgroundPathProd: "./graphics/background.png",
   bulletIconPathDev: ".src/Assets/graphics/ammo_icon.png",
   bulletIconPathProd: "./graphics/ammo_icon.png",
   get cursorPath() {
