@@ -13,7 +13,7 @@ export const scenes = {
 } as const;
 
 export const model = {
-  mode: "prod" as "dev" | "prod",
+  mode: "dev" as "dev" | "prod",
   screenWidth: 0,
   screenHeight: 0,
   wave: 0,
@@ -67,12 +67,21 @@ export const model = {
     m.upgradeConfirmString = "ammo capacity?";
   },
 
+  fontPathDev: "./src/Assets/fonts/zombiecontrol.ttf",
+  fontPathProd: "./fonts/zombiecontrol.ttf",
   cursorPathDev: "./src/Assets/graphics/crosshair.png",
   cursorPathProd: "./graphics/crosshair.png",
   backgroundPathDev: "./src/Assets/graphics/background.png",
   backgroundPathProd: "./graphics/background.png",
   bulletIconPathDev: "./src/Assets/graphics/ammo_icon.png",
   bulletIconPathProd: "./graphics/ammo_icon.png",
+  get fontPath() {
+    if (this.mode === "dev") {
+      return this.fontPathDev;
+    } else {
+      return this.fontPathProd;
+    }
+  },
   get cursorPath() {
     if (this.mode === "dev") {
       return this.cursorPathDev;
@@ -116,7 +125,7 @@ export const template = `
         font-family: 'zombie';
         font-style: normal;
         font-weight: 400;
-        src: url('\${cursorPath}');
+        src: url('\${fontPath}');
     }
 
     canvas{ 
@@ -124,7 +133,7 @@ export const template = `
         top:50%; 
         left:50%; 
         transform: translate(-50% , -50%);
-        cursor: url('./graphics/crosshair.png') 27.5 27.5, auto;
+        cursor: url(\${cursorPath}) 27.5 27.5, auto;
     }
     
     button:hover{
@@ -144,6 +153,7 @@ export const template = `
         text-align: center;
         pointer-events: none;
     }
+      
 </style> 
 <div> 
     <canvas id='cnv'> </canvas> 
