@@ -13,7 +13,7 @@ export const scenes = {
 } as const;
 
 export const model = {
-  mode: "prod" as "dev" | "prod",
+  mode: "dev" as "dev" | "prod",
   screenWidth: 0,
   screenHeight: 0,
   wave: 0,

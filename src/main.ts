@@ -2,7 +2,7 @@
 import "./style.css";
 
 import { UI } from "@peasy-lib/peasy-ui";
-import { Engine, DisplayMode, KeyEvent, Sound, SoundManger, SoundManagerOptions } from "excalibur";
+import { Engine, DisplayMode, KeyEvent, SoundManger, SoundManagerOptions } from "excalibur";
 import { model, template } from "./UI/UI";
 import { loader, Resources } from "./resources";
 import { Player } from "./Actors/Player";
